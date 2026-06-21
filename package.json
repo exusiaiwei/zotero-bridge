@@ -4,7 +4,7 @@
   "description": "Agent-friendly CLI for Zotero via JS Bridge. Clean JSON, always.",
   "type": "module",
   "bin": {
-    "zotero-bridge": "./bin/cli.js"
+    "zotero-bridge": "bin/cli.js"
   },
   "files": [
     "bin/",
