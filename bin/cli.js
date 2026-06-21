@@ -274,6 +274,35 @@ Examples:
     run(() => cmd.collectionCreate(name, { parent: opts.parent }))
   );
 
+// ── Highlight ───────────────────────────────────────────────────────
+
+program
+  .command("highlight <key> <text>")
+  .summary("Create a text highlight annotation on a PDF")
+  .description(
+    `Find text in the PDF and create a highlight annotation with exact positioning.
+The text is searched in the PDF using pdf.js — no manual coordinates needed.
+
+Returns: {ok, key, page, text} on success.
+
+Examples:
+  zotero-bridge highlight 5NTMA4E4 "Growing Neural Cellular Automata"
+  zotero-bridge highlight 5NTMA4E4 "self-organising" --comment "[Claude] key concept"
+  zotero-bridge highlight 5NTMA4E4 "morphogenesis" --page 2 --color "#2ea8e5"`
+  )
+  .option("-c, --comment <text>", "annotation comment")
+  .option("--color <hex>", "highlight color (default: #2ea8e5 blue)", "#2ea8e5")
+  .option("-p, --page <n>", "search specific page only (1-indexed)")
+  .action((key, text, opts) =>
+    run(() =>
+      cmd.highlight(key, text, {
+        comment: opts.comment,
+        color: opts.color,
+        page: opts.page ? +opts.page : undefined,
+      })
+    )
+  );
+
 // ── PDF ─────────────────────────────────────────────────────────────
 
 program
